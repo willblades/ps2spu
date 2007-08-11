@@ -15,7 +15,7 @@ The software writing philosophy on this project is simple.
     * `int num_devices = 0;`
   # Pointer variables will use the same style as other variables, but end with _ptr.
     * `int* num_devices_ptr = NULL;`
-    * `const char* DEVICE_NAMES[] = { "Core0", "Core1" };`
+    * `const IDevice* SOUND_DEVICE_PTR = NULL;`
   # Handle variables will use the same style as other variables, but end with _handle.
     * `HWND GLOBAL_WINDOW_HANDLE = NULL;`
     * `HWND cancel_button_handle = NULL;`
@@ -84,7 +84,6 @@ interrupt &= ~INTERRUPT_BIT;
   # Initialize floating point values with a real number followed by a capital F
     * Bad: `float normal = 1;`
     * Good: `float normal = 1.0F`
-
 
 
 
