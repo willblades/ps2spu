@@ -4,8 +4,8 @@
 
 The software writing philosophy on this project is simple.
   # Design the code in small, modular units as much as possible.
-  # Keep the code base neat, clean, and well explained unlike many emulation projects.
-  # Make the plugin as simple to configure and get working with Pcsx2 as possible.
+  # Keep the code base neat, clean, and well documented unlike many emulation projects.
+  # Give your variables descriptive names for maintainability.
 
 = Naming Variables =
 
@@ -42,3 +42,52 @@ The software writing philosophy on this project is simple.
     * `#define GET_REG(x) ...`
   # All macro code will be surrounded by `do { ... } while(0)` tags to avoid the various problems listed [http://kernelnewbies.org/FAQ/DoWhile0 here].
     * `#define GET_REG(x) do { ... } while(0)`
+
+= Miscellaneous Styles =
+
+  # In your editor avoid tabs, instead configure 1 tab = 4 spaces
+  # Conditional and loop statements, no matter how short, will always contain brackets
+    * Bad:
+{{{
+if(a == b)
+    return true;
+}}}
+    * Good:
+{{{
+if(a == b)
+{
+    return true;
+}
+}}}
+  # Avoid clumping long mathematical expressions, use good spacing
+    * Bad: `((a+b)/d)`
+    * Good: `((a + b) / d)`
+  # Use cross-platform data types to ensure the right number of bits and save typing
+    * Bad: `unsigned short reg_16;`
+    * Good: `uint16 reg_16`
+  # Use C++ style comments, never C style comments
+    * Bad: `/* Do something */`
+    * Good: `// Do something`
+  # Use TODO comments to indicate tasks that are incomplete
+    * Bad: `// Someone should check if the device is lost, it doesn't do it now`
+    * Good: `// TODO: Check that the device has not been lost`
+  # Put comments before the code they describe:
+    * Bad:
+{{{
+interrupt &= ~INTERRUPT_BIT; // Clear the interrupt bit
+}}}
+    * Good:
+{{{
+// Clear the interrupt bit
+interrupt &= ~INTERRUPT_BIT;
+}}}
+  # Initialize floating point values with a real number followed by a capital F
+    * Bad: `float normal = 1;`
+    * Good: `float normal = 1.0F`
+
+
+
+
+
+
+
