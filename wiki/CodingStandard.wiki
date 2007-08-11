@@ -43,6 +43,15 @@ The software writing philosophy on this project is simple.
   # All macro code will be surrounded by `do { ... } while(0)` tags to avoid the various problems listed [http://kernelnewbies.org/FAQ/DoWhile0 here].
     * `#define GET_REG(x) do { ... } while(0)`
 
+= Memory Allocation/Deallocation =
+
+  # All memory allocation will be done with the new operator.
+    * `SpuCore* spu_core0_ptr = new SpuCore;`
+    * `SpuVoice* core0_voices_ptr = new SpuVoice[NUM_VOICES_PER_CORE];`
+  # All memory deallocation will be done using the proper delete operator.
+    * `delete spu_core0_ptr;`
+    * `delete [] core0_voices_ptr;`
+
 = Miscellaneous Styles =
 
   # In your editor avoid tabs, instead configure 1 tab = 4 spaces
@@ -84,7 +93,6 @@ interrupt &= ~INTERRUPT_BIT;
   # Initialize floating point values with a real number followed by a capital F
     * Bad: `float normal = 1;`
     * Good: `float normal = 1.0F`
-
 
 
 
