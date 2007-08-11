@@ -12,6 +12,6 @@ Nothing at this time.
 = Developer Details =
 
   # Getting Started
-  # Coding Standard
+  # [CodingStandard Coding Standard]
   # Design Document
   # Requirements Document
