@@ -1,0 +1,93 @@
+Coding Style Conventions
+By zenogais
+============================================
+
+>>(Variable Naming)<<
+
+Rules: All names will be descriptive including iterators
+
+1) Global variables shall be titled in all caps with words separated by _
+	const int SOME_GLOBAL_INT = 10;
+2) Variables within functions shalled be named all lowercase with words separted by _
+	int num_devs = 0;
+3) Variables within functions that are pointers shalled be named as follows
+	int* num_devs_ptr = NULL;
+4) Variables within functions that are handles shalled be named as follow
+	HWND wnd_handle = NULL;
+5) Class member variables shall be named as normal with a trailing _
+	int member_var_;
+6) When iterating over a range name the iterator something descriptive like:
+	for(int reg_index = 0; reg_index < NUM_REGS; reg_index++)
+	{ ... }
+7) Enumerations will be named as follows:
+	EnumSpuInterrupts
+	{
+	   ESI_DMA
+	};
+
+>>(Function/Class/Struct/Macro Naming)<<
+
+Rules: Functions like variables will be given descriptive names
+
+1) All Functions will be named as follows:
+	void myVoidFunction();
+2) All interface classes will be preceded by an I and a name obeying normal class naming conventions:
+	class ISoundDescriptor;
+3) All regular classes will be named as follows (capitalization):
+	class DirectSoundDescriptor;
+4) All structs will be named as follows:
+	struct SpuRegisters;
+5) All macros will be named in all caps with words separated by _
+	#define GET_REG(x)
+6) All macros will be surrounded by do { ... } while(0) to avoid errors like those seen on
+   http://kernelnewbies.org/FAQ/DoWhile0
+	#define GET_REG(x) do { ... } while(0)
+
+>>(General Coding Style)<<
+
+Rules: Avoid nifty and obfuscated code, prefer the clear kind.  We can optimize later.
+
+1) In your editor of choice choose to convert tabs to spaces with 1 tab = 4 spaces.
+2) Try to avoid excessively long lines, but a few is ok.
+3) If statements, no matter how short, will always contain brackets
+	if(a == b) ***BAD***
+	    return true;
+
+	if(a == b)
+	{
+	    return true;
+	}
+
+4) Spacing with mathematical or bitwise operations is preferred to clumped code
+	((a/(b+(d/c)))) ***BAD***
+
+	((a / (b + (d / c))))
+
+5) If you need a variable to be exactly 16-bit use the 16-bit data types not unsigned short
+	unsigned short my_16bit_var; ***BAD***
+
+	uint16_t my_16bit_var;
+
+6) Use // style comments instead of /* */
+	/* MY comment */ ***BAD***
+
+	// My comment
+
+7) Add TODO comments as you go if you want something to be added to a function later
+	// TODO: Check that sound device has not beed lost
+	
+8) All comments will go before the code they describe
+	// Divide the variable by two
+	double result = (double)value/2.0F;
+
+9) Floating point variables will be initialized as follows:
+	float normal = 1.0F;
+	double ratio = normal / 8.0F;
+
+10) Verify all the preconditions to functions with an assertion:
+	void increase(int* ptr, size_t amount)
+	{
+		assert(ptr != NULL);
+		
+		ptr += amount;
+	}
