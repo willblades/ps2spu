@@ -1,0 +1,44 @@
+#summary The standard styles used for writing the ps2spu software.
+
+= Introduction =
+
+The software writing philosophy on this project is simple.
+  # Design the code in small, modular units as much as possible.
+  # Keep the code base neat, clean, and well explained unlike many emulation projects.
+  # Make the plugin as simple to configure and get working with Pcsx2 as possible.
+
+= Naming Variables =
+
+  # Global variables will consist of all capital letters with underscore separated words.
+    * `const int PLUGIN_VERSION_MAJOR = 0;`
+  # All other variables will consist of lowercase letters with underscore separated words.
+    * `int num_devices = 0;`
+  # Pointer variables will use the same style as other variables, but end with _ptr.
+    * `int* num_devices_ptr = NULL;`
+    * `char* DEVICE_NAMES[] = { "Core0", "Core1" };`
+  # Handle variables will user the same style as other variables, but end with _handle.
+    * `HWND GLOBAL_WINDOW_HANDLE = NULL;`
+    * `HWND cancel_button_handle = NULL;`
+  # Class member variables shall use the same style rules, but end with an underscore.
+    * `int channel_ = 0;`
+  # Use descriptive names everywhere, even when just iterating.
+    * `for(int reg_index = 0; reg_index < NUM_REGS; reg_index++) { ... }`
+
+= Function/Class/Struct/Enum/Macro Naming =
+
+  # The first word in a function name will be lowercase, subsequent words will start with an uppercase letter.
+    * `void readMemory8();`
+  # Interface class will begin with the letter I followed by the class name with each word beginning with an uppercase letter.
+    * `class ISoundDevice { ... };`
+  # Non-interface classes will begin with have each word beginning with an uppercase letter.
+    * `class DirectSoundDevice : public ISoundDevice { ... };`
+  # Structs will follow the same naming convention as classes.
+    * `struct SpuRegister { ... };`
+  # Enumerations will begin with the word enum followed by a descriptive name with each word beginning with an uppercase letter.
+    * `enum EnumSpuInterrupts`
+  # Enumeration values will begin with the acronym of the enumeration name followed by an underscore and use the global variable naming convention.
+    * `enum EnumSpuInterrupts { ESI_AUTO_DMA, ... };`
+  # All macros will use the global variable naming convention.
+    * `#define GET_REG(x) ...`
+  # All macro code will be surrounded by `do { ... } while(0)` tags to avoid the various problems listed [http://kernelnewbies.org/FAQ/DoWhile0 here].
+    * `#define GET_REG(x) do { ... } while(0)`
