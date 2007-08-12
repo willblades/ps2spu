@@ -93,7 +93,6 @@ interrupt &= ~INTERRUPT_BIT;
   # Initialize floating point values with a real number followed by a capital F
     * Bad: `float normal = 1;`
     * Good: `float normal = 1.0F`
-
   # When incrementing variables prefer post-increment to pre-increment, and when passing by value or const reference use + 1.
     * Bad: `++a;`
     * Good: `a++;`
