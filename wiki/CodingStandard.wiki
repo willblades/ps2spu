@@ -98,3 +98,6 @@ interrupt &= ~INTERRUPT_BIT;
     * Good: `a++;`
     * Bad: `f( v.begin()++ );` or `f( ++v.begin() );`
     * Good: `f( v.begin() + 1 );`
+  # Include guards will never coding any leading or following underscores, as per names with leading underscores being reserved in the C++ standard.
+    * Bad: #ifndef __PS2SPU_MEMORY_HPP__
+    * Good: #ifndef PS2SPU_MEMORY_HPP
