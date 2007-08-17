@@ -1,4 +1,0 @@
-Goals:
-============
-
-+ Get memory reads and writes working
