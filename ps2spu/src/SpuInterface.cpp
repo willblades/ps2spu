@@ -28,6 +28,8 @@ enum EnumInterfaceResult
     EIR_FAILURE = -1
 };
 
+#define SPU2_TSA (*(u32*)&ps2spu::memory::memory_ptr[0x01A8])
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +69,7 @@ u32 CALLBACK PS2EgetLibType()
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-u32 CALLBACK PS2EgetLibVersion2(u32 type)
+u32 CALLBACK PS2EgetLibVersion2(u32)
 {
     return MAKE_PS2E_VERSION(PS2SPU_VERSION_MAJOR, PS2SPU_VERSION_MINOR);
 }
@@ -126,6 +128,7 @@ void CALLBACK SPU2close()
 //! \brief Write 16bits of data into memory
 void CALLBACK SPU2write(u32 address, u16 value)
 {
+    memory::write(address, value);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +138,7 @@ void CALLBACK SPU2write(u32 address, u16 value)
 //! \brief Read 16bits of data from memory
 u16 CALLBACK SPU2read(u32 address)
 {
-    return 0;
+    return memory::read(address);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,6 +148,7 @@ u16 CALLBACK SPU2read(u32 address)
 //! \brief Read data from memory using DMA4 access
 void CALLBACK SPU2readDMA4Mem(u16* mem_ptr, int size)
 {
+    memory::read(SPU2_TSA, mem_ptr, size);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -154,6 +158,7 @@ void CALLBACK SPU2readDMA4Mem(u16* mem_ptr, int size)
 //! \brief Write data to memory using DMA4 access
 void CALLBACK SPU2writeDMA4Mem(u16* mem_ptr, int size)
 {
+    memory::write(SPU2_TSA, mem_ptr, size);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -172,6 +177,7 @@ void CALLBACK SPU2interruptDMA4()
 //! \brief Read data from memory using DMA7 access
 void CALLBACK SPU2readDMA7Mem(u16* mem_ptr, int size)
 {
+    memory::read(SPU2_TSA, mem_ptr, size);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -181,6 +187,7 @@ void CALLBACK SPU2readDMA7Mem(u16* mem_ptr, int size)
 //! \brief Write data to memory using DMA7 access
 void CALLBACK SPU2writeDMA7Mem(u16* mem_ptr, int size)
 {
+    memory::write(SPU2_TSA, mem_ptr, size);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -198,6 +205,7 @@ void CALLBACK SPU2interruptDMA7()
 
 void CALLBACK SPU2setDMABaseAddr(uptr base_addr)
 {
+    SPU2_TSA = base_addr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -17,116 +17,81 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "SpuMemory.hpp"
-#include "SpuEssentials.hpp"
-using namespace ps2spu;
+#include "SpuLog.hpp"
+#include <cstdarg>
 
-u16* memory::memory_ptr = NULL;
+const int VARGS_BUFFER_SIZE = 1024;
+ps2spu::Log* ps2spu::Log::instance_ptr_ = NULL;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void memory::init()
+ps2spu::Log::Log()
 {
-    memory_ptr = new u16[SPU2_MEMORY_SIZE];
-    memory::clear();
+    log_.open(LOG_FILE_NAME);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void memory::shutdown()
+ps2spu::Log::~Log()
 {
-    if(memory_ptr != NULL)
-    {
-        delete [] memory_ptr;
-        memory_ptr = NULL;
-    }
+    log_.close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-u16 memory::read(const u32& address)
+ps2spu::Log* ps2spu::Log::instance()
 {
-    if(memory_ptr == NULL)
+    if(instance_ptr_ == NULL)
     {
-        throw std::runtime_error("Error, attempt to read when memory not alloced!");
+        instance_ptr_ = new Log();
+        atexit(ps2spu::Log::deleteInstance);
     }
 
-    if(address >= SPU2_MEMORY_SIZE)
-    {
-        throw std::out_of_range("Error, attempt to read value out of range!");
-    }
-
-    return memory_ptr[address];
+    return instance_ptr_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void memory::read(const u32& base_addr, const u16 buffer[], const u32& size)
+void ps2spu::Log::write(const char message[])
 {
-    if(memory_ptr == NULL)
-    {
-        throw std::runtime_error("Error, attempt to read when memory not alloced!");
-    }
-
-    if(base_addr >= SPU2_MEMORY_SIZE)
-    {
-        throw std::out_of_range("Error, attempt to read value out of range!");
-    }
-
-    memcpy((void*)buffer, &memory_ptr[base_addr], size);
+    log_ << message << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void memory::write(const u32& address, const u16& data)
+void ps2spu::Log::write(const char format[], ...)
 {
-    if(memory_ptr == NULL)
-    {
-        throw std::runtime_error("Error, attempt to write when memory not alloced!");
-    }
+    // Convert the variadic arguments to a string
+    static char buffer_ptr[VARGS_BUFFER_SIZE];
 
-    if(address >= SPU2_MEMORY_SIZE)
-    {
-        throw std::out_of_range("Error, attempt to write value out of range!");
-    }
+    va_list args_list;
+    va_start(args_list, format);
+    vsnprintf(buffer_ptr, VARGS_BUFFER_SIZE, format, args_list);
+    va_end(args_list);
 
-    memory_ptr[address] = data;
+    // Write the message into the log
+    log_ << buffer_ptr << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-void memory::write(const u32& base_addr, const u16 buffer[], const u32& size)
+void ps2spu::Log::deleteInstance()
 {
-    if(memory_ptr == NULL)
+    if(instance_ptr_ != NULL)
     {
-        throw std::runtime_error("Error, attempt to write when memory not alloced!");
+        delete instance_ptr_;
+        instance_ptr_ = NULL;
     }
-
-    if(base_addr >= SPU2_MEMORY_SIZE)
-    {
-        throw std::out_of_range("Error, attempt to write value out of range!");
-    }
-
-    memcpy(&memory_ptr[base_addr], buffer, size);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-
-void memory::clear()
-{
-    memset((char*)memory_ptr, 0, SPU2_CLEAR_SIZE);
 }
