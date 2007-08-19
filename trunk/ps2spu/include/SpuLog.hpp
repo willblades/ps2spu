@@ -17,50 +17,53 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef PS2SPU_MEMORY_HPP
-#define PS2SPU_MEMORY_HPP
+#ifndef PS2SPU_LOG_HPP
+#define PS2SPU_LOG_HPP
 
-#include "PS2Etypes.hpp"
+#include <fstream>
 
-namespace ps2spu { 
-    namespace memory {
-        ////////////////////////////////////////////////////////////////////////
-        // (Ini/Deini)tializers
-        ////////////////////////////////////////////////////////////////////////
+namespace ps2spu
+{
+    static const char LOG_FILE_NAME[] = "ps2spu.log";
 
-        //! \brief Allocates memory for the SPU2
-        void init();
-        //! \brief Deallocates memory for the SPU2
-        void shutdown();
-
+    //! \brief Class for writing to log file
+    class Log
+    {
+    public:
         ////////////////////////////////////////////////////////////////////////
         // Accessors
         ////////////////////////////////////////////////////////////////////////
 
-        //! \brief Reads a value of the given type from memory
-        u16 read(const u32& address);
-        //! \brief Transfer data from SPU2 memory to host memory
-        void read(const u32& base_addr, const u16 buffer[], const u32& size);
+        //! \brief Get the singleton instance as a pointer
+        static Log* instance();
 
         ////////////////////////////////////////////////////////////////////////
-        // Modifiers
+        // Mutators
         ////////////////////////////////////////////////////////////////////////
 
-        //! \brief Writes the given value into memory at the given address
-        void write(const u32& address, const u16& data);
-        //! \brief Transfer the data from one buffer into memory
-        void write(const u32& base_addr, const u16 buffer[], const u32& size);
-        //! \brief Clears the entire memory area
-        void clear();
+        //! \brief Writes a single string into the log
+        void write(const char message[]);
+        //! \brief Writes a printf-formatted message to the log
+        void write(const char format[], ...);
+        //! \brief Delete the singleton instance
+        static void deleteInstance();
+    private:
+        ////////////////////////////////////////////////////////////////////////
+        // Constructor/Destructor
+        ////////////////////////////////////////////////////////////////////////
+
+        //! \brief Constructor
+        Log();
+        //! \brief Destructor
+        ~Log();
 
         ////////////////////////////////////////////////////////////////////////
-        // Variables
+        // Member Variables
         ////////////////////////////////////////////////////////////////////////
 
-        extern u16* memory_ptr; //!< The allocated chunk of memory for SPU2
-        static const u32 SPU2_MEMORY_SIZE = (1024 * 1024); //!< 2 MB
-        static const u32 SPU2_CLEAR_SIZE = (2 * SPU2_MEMORY_SIZE); //!< For clear()
-    }
+        std::ofstream log_;
+        static Log* instance_ptr_;
+    };
 }
 
-#endif // PS2SPU_MEMORY_HPP
+#endif // PS2SPU_LOG_HPP

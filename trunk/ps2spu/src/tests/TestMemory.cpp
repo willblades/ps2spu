@@ -33,25 +33,24 @@ TEST(TestThatMemoryPointerIsNotNullAfterInitialization)
     CHECK(memory::memory_ptr != NULL);
 }
 
+TEST(TestThatWritingAndReadingSixteenBitsWorks)
+{
+    memory::write(0x32, 0xAABB);
+    CHECK_EQUAL(0xAABB, memory::read(0x32));
+}
+
+TEST(TestThatWritingSixteenBitsOutOfBoundsThrowsException)
+{
+    CHECK_THROW(memory::write(memory::SPU2_MEMORY_SIZE, 0x88), std::out_of_range);
+}
+
+TEST(TestThatReadingSixteenBitsOutOfBoundsThrowsException)
+{
+    CHECK_THROW(memory::read(memory::SPU2_MEMORY_SIZE), std::out_of_range);
+}
+
 TEST(TestThatMemoryPointerIsNullAfterShutdown)
 {
     memory::shutdown();
     CHECK(memory::memory_ptr == NULL);
-}
-
-TEST(TestThatWritingAndReadingEightBitsWorks)
-{
-    memory::init();
-    memory::write8(0x32, 0x88);
-    CHECK_EQUAL(memory::read8(0x32), 0x88);
-}
-
-TEST(TestThatWritingEightBitsOutOfBoundsThrowException)
-{
-    CHECK_THROW(memory::write8(memory::SPU2_MEMORY_SIZE, 0x88), std::out_of_range);
-}
-
-TEST(TestThatReadingEightBitsOutOfBoundsThrowsException)
-{
-    CHECK_THROW(memory::read8(memory::SPU2_MEMORY_SIZE), std::out_of_range);
 }
