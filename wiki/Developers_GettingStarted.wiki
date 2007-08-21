@@ -4,6 +4,9 @@
 
 The basic idea behind this project is to create a Playstation2 SPU2 emulator that not only works on a wide variety of platforms, but that also is code in a consistent, readable and well-documented fashion that serves as documentation for the hardware as well.
 
+= Drop In And Say Hi =
+
+We're usually all hanging around on IRC (EFNet in #emudev and #pcsx2) so please feel free to drop by and ask us questions, report bugs or just enjoy a chat.
 
 = Design Details =
 
