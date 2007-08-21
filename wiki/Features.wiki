@@ -13,10 +13,8 @@
 
 = Requirements To Develop =
 
-  * Compilers that can be used:
+  * A C++ compiler (one of these should work):
     * [http://www.mingw.org/ MingW32] 5.1.3 or greater
     * gcc 3.4.5 or greater
     * [http://msdn.microsoft.com/vstudio/express/visualc/ Visual C++] 2005 or greater
   * [http://www.libsdl.org SDL] 1.2.0 or greater
-  * [http://www.sourceforge.net/projects/unittest-cpp UnitTest++] for automated testing
-
