@@ -320,10 +320,5 @@ void CALLBACK SPU2about()
 
 s32 CALLBACK SPU2test()
 {
-    if(UnitTest::RunAllTests())
-    {
-        return EIR_FAILURE;
-    }
-
     return EIR_SUCCESS;
 }

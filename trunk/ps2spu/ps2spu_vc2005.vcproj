@@ -61,9 +61,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="UnitTest++_debug.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="./libs/UnitTest++/libs;"
+				AdditionalLibraryDirectories=""
 				ModuleDefinitionFile="ps2spu.def"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -184,14 +183,6 @@
 				RelativePath=".\include\SpuMemory.hpp"
 				>
 			</File>
-			<Filter
-				Name="tests"
-				>
-				<File
-					RelativePath=".\src\tests\TestMemory.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="core"
