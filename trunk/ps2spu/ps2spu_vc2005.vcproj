@@ -193,6 +193,34 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="core"
+			>
+			<File
+				RelativePath=".\include\SpuEssentials.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\SpuLog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\SpuLog.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="sound"
+			>
+		</Filter>
+		<Filter
+			Name="registers"
+			>
+			<File
+				RelativePath=".\include\SpuRegisters.hpp"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\include\PS2Edefs.hpp"
 			>
@@ -202,19 +230,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\include\SpuEssentials.hpp"
-			>
-		</File>
-		<File
 			RelativePath=".\src\SpuInterface.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\SpuLog.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\SpuLog.hpp"
 			>
 		</File>
 	</Files>

@@ -54,12 +54,12 @@ u16 memory::read(const u32& address)
 {
     if(memory_ptr == NULL)
     {
-        throw std::runtime_error("Error, attempt to read when memory not alloced!");
+        throw std::runtime_error("Attempt to read when memory not alloced!");
     }
 
     if(address >= SPU2_MEMORY_SIZE)
     {
-        throw std::out_of_range("Error, attempt to read value out of range!");
+        throw std::out_of_range("Attempt to read value out of range!");
     }
 
     return memory_ptr[address];
@@ -73,12 +73,12 @@ void memory::read(const u32& base_addr, const u16 buffer[], const u32& size)
 {
     if(memory_ptr == NULL)
     {
-        throw std::runtime_error("Error, attempt to read when memory not alloced!");
+        throw std::runtime_error("Attempt to read when memory not alloced!");
     }
 
     if(base_addr >= SPU2_MEMORY_SIZE)
     {
-        throw std::out_of_range("Error, attempt to read value out of range!");
+        throw std::out_of_range("Attempt to read value out of range!");
     }
 
     memcpy((void*)buffer, &memory_ptr[base_addr], size);
@@ -92,12 +92,12 @@ void memory::write(const u32& address, const u16& data)
 {
     if(memory_ptr == NULL)
     {
-        throw std::runtime_error("Error, attempt to write when memory not alloced!");
+        throw std::runtime_error("Attempt to write when memory not alloced!");
     }
 
     if(address >= SPU2_MEMORY_SIZE)
     {
-        throw std::out_of_range("Error, attempt to write value out of range!");
+        throw std::out_of_range("Attempt to write value out of range!");
     }
 
     memory_ptr[address] = data;
@@ -111,12 +111,12 @@ void memory::write(const u32& base_addr, const u16 buffer[], const u32& size)
 {
     if(memory_ptr == NULL)
     {
-        throw std::runtime_error("Error, attempt to write when memory not alloced!");
+        throw std::runtime_error("Attempt to write when memory not alloced!");
     }
 
     if(base_addr >= SPU2_MEMORY_SIZE)
     {
-        throw std::out_of_range("Error, attempt to write value out of range!");
+        throw std::out_of_range("Attempt to write value out of range!");
     }
 
     memcpy(&memory_ptr[base_addr], buffer, size);

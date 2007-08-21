@@ -26,6 +26,9 @@ namespace ps2spu
 {
     static const char LOG_FILE_NAME[] = "ps2spu.log";
 
+    #define LOG(x) ps2spu::Log::instance()->write(x)
+    #define LOG_FMT(x, ...) ps2spu::Log::instance()->write(x, __VA_ARGS__)
+
     //! \brief Class for writing to log file
     class Log
     {

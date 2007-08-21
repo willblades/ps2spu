@@ -19,6 +19,8 @@
 
 #include "SpuEssentials.hpp"
 #include "SpuMemory.hpp"
+#include "SpuLog.hpp"
+#include "SpuRegisters.hpp"
 using namespace ps2spu;
 
 //! \brief Standard return values for plugin functions
@@ -27,8 +29,6 @@ enum EnumInterfaceResult
     EIR_SUCCESS = 0,
     EIR_FAILURE = -1
 };
-
-#define SPU2_TSA (*(u32*)&ps2spu::memory::memory_ptr[0x01A8])
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -128,7 +128,14 @@ void CALLBACK SPU2close()
 //! \brief Write 16bits of data into memory
 void CALLBACK SPU2write(u32 address, u16 value)
 {
-    memory::write(address, value);
+    try
+    {
+        memory::write(address, value);
+    }
+    catch(std::exception& e)
+    {
+        LOG_FMT("Failed write @ 0x%05x: %s", address, e.what());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -138,7 +145,15 @@ void CALLBACK SPU2write(u32 address, u16 value)
 //! \brief Read 16bits of data from memory
 u16 CALLBACK SPU2read(u32 address)
 {
-    return memory::read(address);
+    try
+    {
+        return memory::read(address);
+    }
+    catch(std::exception& e)
+    {
+        LOG_FMT("Failed read @ 0x%05x: %s", address, e.what());
+        return 0;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -148,7 +163,14 @@ u16 CALLBACK SPU2read(u32 address)
 //! \brief Read data from memory using DMA4 access
 void CALLBACK SPU2readDMA4Mem(u16* mem_ptr, int size)
 {
-    memory::read(SPU2_TSA, mem_ptr, size);
+    try
+    {
+        memory::read(SPU2_TSA, mem_ptr, size);
+    }
+    catch(std::exception& e)
+    {
+        LOG_FMT("Failed DMA4 read @ 0x%05x: %s", SPU2_TSA, e.what());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -158,7 +180,14 @@ void CALLBACK SPU2readDMA4Mem(u16* mem_ptr, int size)
 //! \brief Write data to memory using DMA4 access
 void CALLBACK SPU2writeDMA4Mem(u16* mem_ptr, int size)
 {
-    memory::write(SPU2_TSA, mem_ptr, size);
+    try
+    {
+        memory::write(SPU2_TSA, mem_ptr, size);
+    }
+    catch(std::exception& e)
+    {
+        LOG_FMT("Failed DMA4 write @ 0x%05x: %s", SPU2_TSA, e.what());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +206,14 @@ void CALLBACK SPU2interruptDMA4()
 //! \brief Read data from memory using DMA7 access
 void CALLBACK SPU2readDMA7Mem(u16* mem_ptr, int size)
 {
-    memory::read(SPU2_TSA, mem_ptr, size);
+    try
+    {
+        memory::read(SPU2_TSA, mem_ptr, size);
+    }
+    catch(std::exception& e)
+    {
+        LOG_FMT("Failed DMA7 read @ 0x%05x: %s", SPU2_TSA, e.what());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +223,14 @@ void CALLBACK SPU2readDMA7Mem(u16* mem_ptr, int size)
 //! \brief Write data to memory using DMA7 access
 void CALLBACK SPU2writeDMA7Mem(u16* mem_ptr, int size)
 {
-    memory::write(SPU2_TSA, mem_ptr, size);
+    try
+    {
+        memory::write(SPU2_TSA, mem_ptr, size);
+    }
+    catch(std::exception& e)
+    {
+        LOG_FMT("Failed DMA7 write @ 0x%05x: %s", SPU2_TSA, e.what());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -205,7 +248,7 @@ void CALLBACK SPU2interruptDMA7()
 
 void CALLBACK SPU2setDMABaseAddr(uptr base_addr)
 {
-    SPU2_TSA = base_addr;
+    SPU2_TSA = base_addr & 0x00FFFFFF;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
