@@ -11,7 +11,12 @@ Nothing at this time.
 
 = Developer Pages =
 
-  # Getting Started
+  # [Developer_GettingStared Getting Started]
   # [CodingStandard Coding Standard]
   # Design Document
   # Requirements Document
+
+= Contact =
+
+  * IRC
+    * EFNet in #emudev and #pcsx2
