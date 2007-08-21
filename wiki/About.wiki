@@ -11,7 +11,7 @@ Nothing at this time.
 
 = Developer Pages =
 
-  # [Developers_GettingStared Getting Started]
+  # [Developers_GettingStarted Getting Started]
   # [CodingStandard Coding Standard]
   # Design Document
   # Requirements Document
