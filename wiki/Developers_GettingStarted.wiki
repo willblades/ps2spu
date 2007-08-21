@@ -14,3 +14,28 @@ The project, while programmed in C++, is mostly composed of C code for performan
     * namespace registers
     * namespace mixer
     * namespace audio
+
+== The ps2spu namespace ==
+
+This namespace contains all the basic data-types for the project, which are as follows:
+
+  * u8, s8 - 8bit data types
+  * u16, s16 - 16bit data types
+  * u32, s32, uptr - 32bit data types
+  * u64, s64 - 64bit data types (where supported)
+
+In addition this namespace contains preprocessor directives with information about the operating system as well as the build version information.  The preprocessor directives are as follows:
+
+  * *Operating systems/compilers*
+    * PS2SPU_WINDOWS - The machine is a windows computer
+      * PS2SPU_MSVC - The compiler is Microsoft Visual C++
+      * PS2SPU_MINGW32 - The compiler is MingW32
+    * PS2SPU_POSIX - The machine is Linux/BSD/Apple
+      * PS2SPU_APPLE - The machine is an apple computer
+      * PS2SPU_LINUX - The machine is some flavor of linux
+  * *Build version information*
+    * PS2SPU_VERSION_MAJOR - This number is the x in x.y
+    * PS2SPU_VERSION_MINOR - This number is the y in x.y
+    * PS2SPU_COMPILE_MODE - The build mode used on this compilation
+      * PS2SPU_COMPILE_MODE_DEBUG - The build is in debug mode
+      * PS2SPU_COMPILE_MODE_RELEASE - The build is in release mode
