@@ -1,0 +1,16 @@
+#summary If you would like to contribute start here.
+
+= General Philosophy =
+
+The basic idea behind this project is to create a Playstation2 SPU2 emulator that not only works on a wide variety of platforms, but that also is code in a consistent, readable and well-documented fashion that serves as documentation for the hardware as well.
+
+
+= Design Details =
+
+The project, while programmed in C++, is mostly composed of C code for performance reasons.  While C++ provides many unique tools, most of them were not right for this project.  The code is organized as follows
+
+  * namespace ps2spu
+    * namespace memory
+    * namespace registers
+    * namespace mixer
+    * namespace audio
