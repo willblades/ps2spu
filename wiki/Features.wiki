@@ -3,9 +3,9 @@
 = Features =
 
   * Integrate with PCSX2
-  * Emulate the SPU2 via SDL
-  *
-
+  * (in progress) Cross-platform audio using SDL
+  * (planned) Easy to configure (no complex dialogs)
+  * (planned) WAV or Ogg-Vorbis output
 
 = Requirements To Run =
 
