@@ -1,0 +1,1 @@
+A Playstation2 sound processing unit (SPU) emulator for PCSX2 written in C/C++.
